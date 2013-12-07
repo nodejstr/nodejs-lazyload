@@ -1,7 +1,7 @@
 !!! 5
 html
     head
-        title City Database
+        title #{title}
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         //
            Bootstrap
@@ -77,7 +77,12 @@ html
                                 url: "/city/loadCity/"+lastCityIndex,
                                 success: function(html) {
                                     if (html) {
-                                        $("tbody").append(html);
+                                        var html_ = "";
+                                        $.each(html, function(i, e) {
+                                            html_ += '<tr cityindex="' + (i + lastCityIndex) + '"><td>' + e.city + '</td><td>' + e.loc + '</td><td>' + e.pop + '</td><td>' + e.dummy + '</td></tr>';
+                                        });
+
+                                        $("tbody").append(html_);
                                     } else {
                                         alert("Error")
                                     }

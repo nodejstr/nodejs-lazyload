@@ -33,14 +33,12 @@ CityController = function (app, mongoose, config) {
 
     app.get('/city/loadCity/:index/?', function(req, res, next) {
         util.log(req.method + " request to url : " + req.route.path);
+        var index = req.params.index;
         var query = City.find({}).sort({'createDate': -1}).skip(index).limit(30);
         query.execFind(function(err, cities) {
+            console.log(cities)
             if (!err) {
-                res.render('city-list', {
-                    title: "Cities",
-                    cities: cities,
-
-                });
+                res.json(cities);
             } else {
                 res.status(500);
                 res.render('500', {
